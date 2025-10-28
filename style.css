@@ -1,64 +1,64 @@
 /* Police et mise en page globale */
 body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    background-color: #f4f6f8;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f2f5f7;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     color: #333;
 }
 
 h1 {
     text-align: center;
     color: #1e90ff;
-    margin-bottom: 30px;
+    margin: 20px 0;
     font-size: 2em;
 }
 
 h2 {
-    margin-top: 20px;
+    margin: 20px;
     color: #444;
 }
 
-/* Listes sous forme de tableaux */
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* Conteneurs */
+#app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 10px;
 }
 
-li {
-    display: grid;
-    grid-template-columns: 1fr repeat(5, auto);
-    align-items: center;
-    background-color: #fff;
-    padding: 12px 15px;
-    margin-bottom: 10px;
+#rues-container, #maisons-container, #stats-container {
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 12px;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    gap: 8px;
-    font-size: 0.95em;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
 
-li span {
-    padding-left: 5px;
-}
-
-/* Boutons modernes */
+/* Boutons */
 button {
-    border: none;
-    border-radius: 6px;
-    padding: 6px 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.2s ease-in-out;
+    border: none;
+    margin: 4px 2px;
+    flex: 1;
+    transition: all 0.2s;
 }
 
 button:hover {
+    opacity: 0.9;
     transform: translateY(-2px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* Couleurs statuts */
+/* Boutons couleurs */
 .vendu {
     background-color: #4caf50;
     color: white;
@@ -74,40 +74,50 @@ button:hover {
     color: white;
 }
 
-/* Boutons Modifier et Supprimer */
-button.modifier {
+.modifier {
     background-color: #2196f3;
     color: white;
 }
 
-button.supprimer {
+.supprimer {
     background-color: #9c27b0;
     color: white;
 }
 
-/* Inputs stylés */
-input {
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-top: 5px;
-    width: 200px;
+/* Maisons sous forme de cartes */
+li {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
 }
 
-/* Conteneurs */
-#rues-container, #maisons-container, #stats-container {
-    margin-bottom: 30px;
+li .info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 16px;
 }
 
-/* Statistiques avec fond léger */
+li .actions {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Statistiques */
 #stats-container {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 16px;
+    border-radius: 16px;
+    margin: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 #stats-container p {
-    font-size: 1em;
-    margin: 6px 0;
+    font-size: 16px;
+    margin: 8px 0;
 }

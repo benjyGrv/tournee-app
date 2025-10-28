@@ -43,6 +43,7 @@ function afficherMaisons(index) {
     afficherMaisonsListe();
 }
 
+// Fonction pour afficher les maisons sous forme de cartes iPhone
 function afficherMaisonsListe() {
     const maisonsList = document.getElementById("maisons-list");
     maisonsList.innerHTML = "";
@@ -53,14 +54,22 @@ function afficherMaisonsListe() {
         else if(maison.statut === "Refus") li.classList.add("refus");
         else if(maison.statut === "À repasser") li.classList.add("repasser");
 
-        li.innerHTML = `<span>Maison ${maison.numero}</span>
-                        <span>${maison.statut || "Non fait"}</span>
-                        <span>${maison.montant || 0}€</span>
-                        <span>${maison.paiement || "-"}</span>`;
+        // Infos maison
+        const infoDiv = document.createElement("div");
+        infoDiv.classList.add("info");
+        infoDiv.innerHTML = `<span>Maison ${maison.numero}</span>
+                             <span>${maison.statut || "Non fait"}</span>
+                             <span>${maison.montant || 0}€</span>
+                             <span>${maison.paiement || "-"}</span>`;
+        li.appendChild(infoDiv);
 
-        // Boutons
+        // Boutons maison
+        const actionsDiv = document.createElement("div");
+        actionsDiv.classList.add("actions");
+
         const btnVendu = document.createElement("button");
         btnVendu.textContent = "Vendu";
+        btnVendu.classList.add("vendu");
         btnVendu.onclick = () => {
             maison.statut = "Vendu";
             maison.montant = prompt("Montant reçu (€) :", maison.montant || 0);
@@ -71,6 +80,7 @@ function afficherMaisonsListe() {
 
         const btnRefus = document.createElement("button");
         btnRefus.textContent = "Refus";
+        btnRefus.classList.add("refus");
         btnRefus.onclick = () => {
             maison.statut = "Refus";
             maison.montant = 0;
@@ -81,6 +91,7 @@ function afficherMaisonsListe() {
 
         const btnRepasser = document.createElement("button");
         btnRepasser.textContent = "À repasser";
+        btnRepasser.classList.add("repasser");
         btnRepasser.onclick = () => {
             maison.statut = "À repasser";
             maison.montant = 0;
@@ -119,11 +130,13 @@ function afficherMaisonsListe() {
             }
         }
 
-        li.appendChild(btnVendu);
-        li.appendChild(btnRefus);
-        li.appendChild(btnRepasser);
-        li.appendChild(btnModifier);
-        li.appendChild(btnSupprimer);
+        actionsDiv.appendChild(btnVendu);
+        actionsDiv.appendChild(btnRefus);
+        actionsDiv.appendChild(btnRepasser);
+        actionsDiv.appendChild(btnModifier);
+        actionsDiv.appendChild(btnSupprimer);
+        li.appendChild(actionsDiv);
+
         maisonsList.appendChild(li);
     });
 }

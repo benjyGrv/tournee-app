@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Tournée</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Ma Tournée</h1>
+
+    <div id="app">
+        <div id="rues-container">
+            <h2>Rues</h2>
+            <ul id="rues-list"></ul>
+            <input type="text" id="nouvelle-rue" placeholder="Nom de la rue">
+            <button id="ajouter-rue">Ajouter Rue</button>
+        </div>
+
+        <div id="maisons-container" style="display:none;">
+            <h2 id="nom-rue"></h2>
+            <ul id="maisons-list"></ul>
+            <input type="text" id="numero-maison" placeholder="Numéro de maison">
+            <button id="ajouter-maison">Ajouter Maison</button>
+            <button id="retour-rues">← Retour aux rues</button>
+        </div>
+
+        <div id="stats-container">
+            <h2>Statistiques</h2>
+            <p>Total calendriers vendus : <span id="total-ventes">0</span></p>
+            <p>Total encaissé : <span id="total-argent">0</span> €</p>
+            <p>Refus : <span id="total-refus">0</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+/* Police et mise en page globale */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #1e90ff;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #555;
+}
+
+/* Listes */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Boutons */
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Couleurs des statuts */
+.vendu {
+    background-color: #4caf50; /* vert */
+    color: white;
+}
+
+.refus {
+    background-color: #f44336; /* rouge */
+    color: white;
+}
+
+.repasser {
+    background-color: #ff9800; /* orange */
+    color: white;
+}
+
+/* Inputs */
+input {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+/* Conteneurs */
+#rues-container, #maisons-container, #stats-container {
+    margin-bottom: 30px;
+}
+
+/* Statistiques */
+#stats-container {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}

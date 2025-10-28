@@ -5,6 +5,7 @@ function sauvegarder() {
     calculerStats();
 }
 
+// Affichage des rues
 function afficherRues() {
     const ruesList = document.getElementById("rues-list");
     ruesList.innerHTML = "";
@@ -19,6 +20,7 @@ function afficherRues() {
     });
 }
 
+// Ajouter une rue
 document.getElementById("ajouter-rue").onclick = () => {
     const nomRue = document.getElementById("nouvelle-rue").value.trim();
     if(nomRue) {
@@ -29,6 +31,7 @@ document.getElementById("ajouter-rue").onclick = () => {
     }
 };
 
+// Afficher maisons
 let rueSelectionnee = null;
 function afficherMaisons(index) {
     rueSelectionnee = index;
@@ -44,16 +47,22 @@ function afficherMaisonsListe() {
     maisonsList.innerHTML = "";
     maisonsVenduesList.innerHTML = "";
 
-    rues[rueSelectionnee].maisons.forEach((maison, idx) => {
+    rues[rueSelectionnee].maisons.forEach((maison) => {
         const card = document.createElement("div");
         card.className = "house-card";
-        if(maison.statut) card.classList.add(maison.statut.toLowerCase());
+
+        // Statut couleur
+        switch(maison.statut){
+            case "Vendu": card.classList.add("vendu"); break;
+            case "Refus": card.classList.add("refus"); break;
+            case "À repasser": card.classList.add("repasser"); break;
+            default: card.classList.add("nonfait");
+        }
 
         const info = document.createElement("div");
         info.textContent = `Maison ${maison.numero} - Statut: ${maison.statut || "Non fait"} - Montant: ${maison.montant || 0}€ (${maison.paiement || "-"})`;
 
         const actions = document.createElement("div");
-
         const btnVendu = document.createElement("button");
         btnVendu.textContent = "Vendu";
         btnVendu.onclick = () => {
@@ -87,16 +96,19 @@ function afficherMaisonsListe() {
         actions.append(btnVendu, btnRefus, btnRepasser);
         card.append(info, actions);
 
+        // Déplacement automatique
         if(maison.statut === "Vendu") maisonsVenduesList.appendChild(card);
         else maisonsList.appendChild(card);
     });
 }
 
+// Retour aux rues
 document.getElementById("retour-rues").onclick = () => {
     document.getElementById("rues-container").style.display = "block";
     document.getElementById("maisons-container").style.display = "none";
 };
 
+// Ajouter maison
 document.getElementById("ajouter-maison").onclick = () => {
     const numero = document.getElementById("numero-maison").value.trim();
     if(numero) {
@@ -107,6 +119,7 @@ document.getElementById("ajouter-maison").onclick = () => {
     }
 };
 
+// Calcul statistiques
 function calculerStats() {
     let totalVentes = 0, totalArgent = 0, totalRefus = 0;
     rues.forEach(rue => {

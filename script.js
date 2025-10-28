@@ -48,12 +48,13 @@ function afficherMaisonsListe() {
     rues[rueSelectionnee].maisons.forEach((maison, idx) => {
         const li = document.createElement("li");
         li.className = ""; // reset
-if(maison.statut === "Vendu") li.classList.add("vendu");
-else if(maison.statut === "Refus") li.classList.add("refus");
-else if(maison.statut === "À repasser") li.classList.add("repasser");
+        if(maison.statut === "Vendu") li.classList.add("vendu");
+        else if(maison.statut === "Refus") li.classList.add("refus");
+        else if(maison.statut === "À repasser") li.classList.add("repasser");
 
         li.textContent = `Maison ${maison.numero} - Statut: ${maison.statut || "Non fait"} - Montant: ${maison.montant || 0}€ (${maison.paiement || "-"})`;
 
+        // Bouton Vendu
         const btnVendu = document.createElement("button");
         btnVendu.textContent = "Vendu";
         btnVendu.onclick = () => {
@@ -64,6 +65,7 @@ else if(maison.statut === "À repasser") li.classList.add("repasser");
             afficherMaisonsListe();
         }
 
+        // Bouton Refus
         const btnRefus = document.createElement("button");
         btnRefus.textContent = "Refus";
         btnRefus.onclick = () => {
@@ -74,6 +76,7 @@ else if(maison.statut === "À repasser") li.classList.add("repasser");
             afficherMaisonsListe();
         }
 
+        // Bouton À repasser
         const btnRepasser = document.createElement("button");
         btnRepasser.textContent = "À repasser";
         btnRepasser.onclick = () => {
@@ -84,9 +87,41 @@ else if(maison.statut === "À repasser") li.classList.add("repasser");
             afficherMaisonsListe();
         }
 
+        // Bouton Modifier maison (changer statut, montant ou paiement)
+        const btnModifier = document.createElement("button");
+        btnModifier.textContent = "Modifier";
+        btnModifier.onclick = () => {
+            const nouveauStatut = prompt("Modifier le statut (Vendu / Refus / À repasser) :", maison.statut || "Non fait");
+            if(nouveauStatut) {
+                maison.statut = nouveauStatut.trim();
+                if(maison.statut === "Vendu") {
+                    maison.montant = prompt("Montant reçu (€) :", maison.montant || 0);
+                    maison.paiement = prompt("Mode de paiement (espèce/chèque) :", maison.paiement || "espèce");
+                } else {
+                    maison.montant = 0;
+                    maison.paiement = "-";
+                }
+                sauvegarder();
+                afficherMaisonsListe();
+            }
+        }
+
+        // Bouton Supprimer maison
+        const btnSupprimer = document.createElement("button");
+        btnSupprimer.textContent = "Supprimer";
+        btnSupprimer.onclick = () => {
+            if(confirm(`Supprimer la maison ${maison.numero} ?`)) {
+                rues[rueSelectionnee].maisons.splice(idx, 1);
+                sauvegarder();
+                afficherMaisonsListe();
+            }
+        }
+
         li.appendChild(btnVendu);
         li.appendChild(btnRefus);
         li.appendChild(btnRepasser);
+        li.appendChild(btnModifier);
+        li.appendChild(btnSupprimer);
         maisonsList.appendChild(li);
     });
 }

@@ -48,7 +48,6 @@ function afficherMaisonsListe() {
         const card = document.createElement("div");
         card.className = "house-card";
 
-        // couleur selon statut
         switch(maison.statut){
             case "Vendu": card.classList.add("vendu"); break;
             case "Refus": card.classList.add("refus"); break;
@@ -93,7 +92,6 @@ function afficherMaisonsListe() {
         actions.append(btnVendu, btnRefus, btnRepasser);
         card.append(info, actions);
 
-        // Déplacement automatique selon statut
         if(maison.statut === "Vendu") maisonsVenduesList.appendChild(card);
         else maisonsList.appendChild(card);
     });
@@ -114,21 +112,47 @@ document.getElementById("ajouter-maison").onclick = () => {
     }
 };
 
+// Statistiques complètes
 function calculerStats() {
-    let totalVentes = 0, totalArgent = 0, totalRefus = 0;
+    let totalMaisons = 0;
+    let totalRestantes = 0;
+    let totalVentes = 0;
+    let totalArgent = 0;
+    let paiementEspece = 0;
+    let paiementCheque = 0;
+    let totalRefus = 0;
+    let totalRepasser = 0;
+
     rues.forEach(rue => {
         rue.maisons.forEach(maison => {
-            if(maison.statut === "Vendu") {
-                totalVentes++;
-                totalArgent += parseFloat(maison.montant) || 0;
-            } else if(maison.statut === "Refus") {
-                totalRefus++;
+            totalMaisons++;
+            switch(maison.statut){
+                case "Vendu":
+                    totalVentes++;
+                    totalArgent += parseFloat(maison.montant) || 0;
+                    if(maison.paiement === "espèce") paiementEspece++;
+                    else if(maison.paiement === "chèque") paiementCheque++;
+                    break;
+                case "Refus":
+                    totalRefus++;
+                    break;
+                case "À repasser":
+                    totalRepasser++;
+                    break;
+                default:
+                    totalRestantes++;
             }
         });
     });
+
+    document.getElementById("total-maisons").textContent = totalMaisons;
+    document.getElementById("maisons-restantes").textContent = totalRestantes;
     document.getElementById("total-ventes").textContent = totalVentes;
     document.getElementById("total-argent").textContent = totalArgent.toFixed(2);
+    document.getElementById("paiement-espece").textContent = paiementEspece;
+    document.getElementById("paiement-cheque").textContent = paiementCheque;
     document.getElementById("total-refus").textContent = totalRefus;
+    document.getElementById("total-repasser").textContent = totalRepasser;
 }
 
 afficherRues();

@@ -59,6 +59,15 @@ button:hover {
   transition: all 0.3s ease;
 }
 
+.house-card div {
+  display: flex;
+  flex-direction: column;
+}
+
+.house-actions button {
+  margin-left: 6px;
+}
+
 /* Couleurs par statut */
 .vendu {
   background-color: #34c759 !important; /* vert */

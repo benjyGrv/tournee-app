@@ -2,6 +2,7 @@ let rues = JSON.parse(localStorage.getItem("rues")) || [];
 
 function sauvegarder() {
     localStorage.setItem("rues", JSON.stringify(rues));
+    afficherMaisonsListe();
     calculerStats();
 }
 
@@ -30,6 +31,7 @@ document.getElementById("ajouter-rue").onclick = () => {
 };
 
 let rueSelectionnee = null;
+
 function afficherMaisons(index) {
     rueSelectionnee = index;
     document.getElementById("rues-container").style.display = "none";
@@ -44,10 +46,13 @@ function afficherMaisonsListe() {
     maisonsList.innerHTML = "";
     maisonsVenduesList.innerHTML = "";
 
-    rues[rueSelectionnee].maisons.forEach((maison) => {
+    if (rueSelectionnee === null) return;
+
+    rues[rueSelectionnee].maisons.forEach((maison, idx) => {
         const card = document.createElement("div");
         card.className = "house-card";
 
+        // Définir la couleur selon le statut
         switch(maison.statut){
             case "Vendu": card.classList.add("vendu"); break;
             case "Refus": card.classList.add("refus"); break;
@@ -59,14 +64,14 @@ function afficherMaisonsListe() {
         info.textContent = `Maison ${maison.numero} - Statut: ${maison.statut || "Non fait"} - Montant: ${maison.montant || 0}€ (${maison.paiement || "-"})`;
 
         const actions = document.createElement("div");
+
         const btnVendu = document.createElement("button");
         btnVendu.textContent = "Vendu";
         btnVendu.onclick = () => {
             maison.statut = "Vendu";
             maison.montant = prompt("Montant reçu (€) :", maison.montant || 0);
-            maison.paiement = prompt("Mode de paiement :", maison.paiement || "espèce");
+            maison.paiement = prompt("Mode de paiement (espèce/chèque) :", maison.paiement || "espèce");
             sauvegarder();
-            afficherMaisonsListe();
         };
 
         const btnRefus = document.createElement("button");
@@ -76,7 +81,6 @@ function afficherMaisonsListe() {
             maison.montant = 0;
             maison.paiement = "-";
             sauvegarder();
-            afficherMaisonsListe();
         };
 
         const btnRepasser = document.createElement("button");
@@ -86,7 +90,6 @@ function afficherMaisonsListe() {
             maison.montant = 0;
             maison.paiement = "-";
             sauvegarder();
-            afficherMaisonsListe();
         };
 
         actions.append(btnVendu, btnRefus, btnRepasser);
@@ -97,22 +100,23 @@ function afficherMaisonsListe() {
     });
 }
 
+// Retour aux rues
 document.getElementById("retour-rues").onclick = () => {
     document.getElementById("rues-container").style.display = "block";
     document.getElementById("maisons-container").style.display = "none";
 };
 
+// Ajouter maison
 document.getElementById("ajouter-maison").onclick = () => {
     const numero = document.getElementById("numero-maison").value.trim();
     if(numero) {
         rues[rueSelectionnee].maisons.push({numero: numero});
         document.getElementById("numero-maison").value = "";
         sauvegarder();
-        afficherMaisonsListe();
     }
 };
 
-// Statistiques complètes
+// Statistiques
 function calculerStats() {
     let totalMaisons = 0;
     let totalRestantes = 0;
@@ -130,8 +134,8 @@ function calculerStats() {
                 case "Vendu":
                     totalVentes++;
                     totalArgent += parseFloat(maison.montant) || 0;
-                    if(maison.paiement === "espèce") paiementEspece++;
-                    else if(maison.paiement === "chèque") paiementCheque++;
+                    if(maison.paiement?.toLowerCase() === "espèce") paiementEspece++;
+                    else if(maison.paiement?.toLowerCase() === "chèque") paiementCheque++;
                     break;
                 case "Refus":
                     totalRefus++;
@@ -155,5 +159,7 @@ function calculerStats() {
     document.getElementById("total-repasser").textContent = totalRepasser;
 }
 
+// Initialisation
 afficherRues();
+afficherMaisonsListe();
 calculerStats();

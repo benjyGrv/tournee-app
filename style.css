@@ -1,6 +1,6 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #f2f2f7;
   margin: 0;
   padding: 20px;
   color: #333;
@@ -8,39 +8,32 @@ body {
 
 h1 {
   text-align: center;
-  color: #1e90ff;
+  color: #ff3b30;
   margin-bottom: 20px;
+  font-size: 28px;
 }
 
-h2 {
-  margin-top: 20px;
+h2, h3 {
+  margin: 16px 0 8px 16px;
   color: #555;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff;
-  padding: 10px 15px;
-  margin-bottom: 10px;
+input {
+  padding: 10px;
+  margin: 8px 16px 16px;
   border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+  width: calc(100% - 40px);
+  font-size: 16px;
 }
 
 button {
   border: none;
-  border-radius: 8px;
-  padding: 6px 10px;
-  margin-left: 5px;
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   transition: 0.2s;
 }
 
@@ -48,35 +41,32 @@ button:hover {
   opacity: 0.9;
 }
 
+#rues-list li, #maisons-list .house-card, #maisons-vendues-list .house-card {
+  background-color: white;
+  border-radius: 16px;
+  margin: 10px 16px;
+  padding: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.house-actions button {
+  margin-left: 6px;
+}
+
 .vendu {
-  background-color: #4caf50;
-  color: white;
+  background-color: #4cd964 !important;
+  color: white !important;
 }
 
 .refus {
-  background-color: #f44336;
-  color: white;
+  background-color: #ff3b30 !important;
+  color: white !important;
 }
 
 .repasser {
-  background-color: #ff9800;
-  color: white;
-}
-
-input {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 5px;
-}
-
-#rues-container, #maisons-container, #stats-container {
-  margin-bottom: 30px;
-}
-
-#stats-container {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #ff9500 !important;
+  color: white !important;
 }

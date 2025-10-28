@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ma Tournée</title>
+<title>🚒 Ma Tournée</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>🚒 Ma Tournée</h1>
 
   <div id="app">
-    <!-- Liste des rues -->
     <div id="rues-container">
       <h2>Rues</h2>
       <ul id="rues-list"></ul>
@@ -18,22 +17,20 @@
       <button id="ajouter-rue">Ajouter Rue</button>
     </div>
 
-    <!-- Maisons d'une rue -->
     <div id="maisons-container" style="display:none;">
       <h2 id="nom-rue"></h2>
       <button id="retour-rues">← Retour aux rues</button>
 
       <h3>Maisons restantes</h3>
-      <ul id="maisons-list"></ul>
+      <div id="maisons-list"></div>
 
       <h3>Maisons vendues</h3>
-      <ul id="maisons-vendues-list"></ul>
+      <div id="maisons-vendues-list"></div>
 
       <input type="text" id="numero-maison" placeholder="Numéro de maison">
       <button id="ajouter-maison">Ajouter Maison</button>
     </div>
 
-    <!-- Statistiques -->
     <div id="stats-container">
       <h2>Statistiques</h2>
       <p>Total calendriers vendus : <span id="total-ventes">0</span></p>

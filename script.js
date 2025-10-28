@@ -54,7 +54,7 @@ function afficherMaisonsListe() {
 
         li.textContent = `Maison ${maison.numero} - Statut: ${maison.statut || "Non fait"} - Montant: ${maison.montant || 0}€ (${maison.paiement || "-"})`;
 
-        // Bouton Vendu
+        // Boutons
         const btnVendu = document.createElement("button");
         btnVendu.textContent = "Vendu";
         btnVendu.onclick = () => {
@@ -65,7 +65,6 @@ function afficherMaisonsListe() {
             afficherMaisonsListe();
         }
 
-        // Bouton Refus
         const btnRefus = document.createElement("button");
         btnRefus.textContent = "Refus";
         btnRefus.onclick = () => {
@@ -76,7 +75,6 @@ function afficherMaisonsListe() {
             afficherMaisonsListe();
         }
 
-        // Bouton À repasser
         const btnRepasser = document.createElement("button");
         btnRepasser.textContent = "À repasser";
         btnRepasser.onclick = () => {
@@ -87,7 +85,6 @@ function afficherMaisonsListe() {
             afficherMaisonsListe();
         }
 
-        // Bouton Modifier maison (changer statut, montant ou paiement)
         const btnModifier = document.createElement("button");
         btnModifier.textContent = "Modifier";
         btnModifier.onclick = () => {
@@ -106,7 +103,6 @@ function afficherMaisonsListe() {
             }
         }
 
-        // Bouton Supprimer maison
         const btnSupprimer = document.createElement("button");
         btnSupprimer.textContent = "Supprimer";
         btnSupprimer.onclick = () => {

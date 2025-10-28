@@ -1,4 +1,3 @@
-// Données sauvegardées localement
 let rues = JSON.parse(localStorage.getItem("rues")) || [];
 
 function sauvegarder() {
@@ -24,15 +23,15 @@ function afficherRues() {
 // Ajouter une rue
 document.getElementById("ajouter-rue").onclick = () => {
     const nomRue = document.getElementById("nouvelle-rue").value.trim();
-    if (nomRue) {
-        rues.push({ nom: nomRue, maisons: [] });
+    if(nomRue) {
+        rues.push({nom: nomRue, maisons: []});
         document.getElementById("nouvelle-rue").value = "";
         sauvegarder();
         afficherRues();
     }
 };
 
-// Afficher maisons d’une rue
+// Afficher maisons
 let rueSelectionnee = null;
 function afficherMaisons(index) {
     rueSelectionnee = index;
@@ -44,24 +43,15 @@ function afficherMaisons(index) {
 
 function afficherMaisonsListe() {
     const maisonsList = document.getElementById("maisons-list");
+    const maisonsVenduesList = document.getElementById("maisons-vendues-list");
     maisonsList.innerHTML = "";
-
-    const maisonsVendues = document.createElement("ul");
-    const maisonsRestantes = document.createElement("ul");
+    maisonsVenduesList.innerHTML = "";
 
     rues[rueSelectionnee].maisons.forEach((maison, idx) => {
         const li = document.createElement("li");
+        li.className = maison.statut ? maison.statut.toLowerCase() : "";
 
-        li.className = "";
-        if (maison.statut === "Vendu") li.classList.add("vendu");
-        else if (maison.statut === "Refus") li.classList.add("refus");
-        else if (maison.statut === "À revoir") li.classList.add("repasser");
-        else if (maison.statut === "Non vu") li.classList.add("nonvu");
-
-        li.textContent = `Maison ${maison.numero} - ${maison.statut || "Non fait"} - ${maison.montant || 0}€ (${maison.paiement || "-"})`;
-
-        // Boutons d’action
-        const actions = document.createElement("div");
+        li.textContent = `Maison ${maison.numero} - Statut: ${maison.statut || "Non fait"} - Montant: ${maison.montant || 0}€ (${maison.paiement || "-"})`;
 
         const btnVendu = document.createElement("button");
         btnVendu.textContent = "Vendu";
@@ -83,83 +73,51 @@ function afficherMaisonsListe() {
             afficherMaisonsListe();
         };
 
-        const btnRevoir = document.createElement("button");
-        btnRevoir.textContent = "À revoir";
-        btnRevoir.onclick = () => {
-            maison.statut = "À revoir";
+        const btnRepasser = document.createElement("button");
+        btnRepasser.textContent = "À repasser";
+        btnRepasser.onclick = () => {
+            maison.statut = "À repasser";
             maison.montant = 0;
             maison.paiement = "-";
             sauvegarder();
             afficherMaisonsListe();
         };
 
-        const btnNonVu = document.createElement("button");
-        btnNonVu.textContent = "Non vu";
-        btnNonVu.onclick = () => {
-            maison.statut = "Non vu";
-            maison.montant = 0;
-            maison.paiement = "-";
-            sauvegarder();
-            afficherMaisonsListe();
-        };
+        li.appendChild(btnVendu);
+        li.appendChild(btnRefus);
+        li.appendChild(btnRepasser);
 
-        const btnSuppr = document.createElement("button");
-        btnSuppr.textContent = "🗑️";
-        btnSuppr.onclick = () => {
-            if (confirm("Supprimer cette maison ?")) {
-                rues[rueSelectionnee].maisons.splice(idx, 1);
-                sauvegarder();
-                afficherMaisonsListe();
-            }
-        };
-
-        actions.append(btnVendu, btnRefus, btnRevoir, btnNonVu, btnSuppr);
-        li.appendChild(actions);
-
-        // Séparation automatique
-        if (maison.statut === "Vendu") maisonsVendues.appendChild(li);
-        else maisonsRestantes.appendChild(li);
+        if(maison.statut === "Vendu") maisonsVenduesList.appendChild(li);
+        else maisonsList.appendChild(li);
     });
-
-    maisonsList.innerHTML = `
-        <h3>Maisons restantes</h3>
-    `;
-    maisonsList.appendChild(maisonsRestantes);
-
-    if (maisonsVendues.childElementCount > 0) {
-        const titreVendus = document.createElement("h3");
-        titreVendus.textContent = "Maisons vendues";
-        maisonsList.appendChild(titreVendus);
-        maisonsList.appendChild(maisonsVendues);
-    }
 }
 
 // Retour aux rues
 document.getElementById("retour-rues").onclick = () => {
     document.getElementById("rues-container").style.display = "block";
     document.getElementById("maisons-container").style.display = "none";
-};
+}
 
 // Ajouter maison
 document.getElementById("ajouter-maison").onclick = () => {
     const numero = document.getElementById("numero-maison").value.trim();
-    if (numero) {
-        rues[rueSelectionnee].maisons.push({ numero: numero });
+    if(numero) {
+        rues[rueSelectionnee].maisons.push({numero: numero});
         document.getElementById("numero-maison").value = "";
         sauvegarder();
         afficherMaisonsListe();
     }
-};
+}
 
 // Calcul statistiques
 function calculerStats() {
     let totalVentes = 0, totalArgent = 0, totalRefus = 0;
     rues.forEach(rue => {
         rue.maisons.forEach(maison => {
-            if (maison.statut === "Vendu") {
+            if(maison.statut === "Vendu") {
                 totalVentes++;
                 totalArgent += parseFloat(maison.montant) || 0;
-            } else if (maison.statut === "Refus") {
+            } else if(maison.statut === "Refus") {
                 totalRefus++;
             }
         });

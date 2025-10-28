@@ -3,43 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ma Tournée</title>
+  <title>Mes Maisons</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🚒 Ma Tournée</h1>
+  <h1>🏡 Mes Maisons</h1>
 
-  <div id="app">
-    <div id="rues-container">
-      <h2>Rues</h2>
-      <ul id="rues-list"></ul>
-      <input type="text" id="nouvelle-rue" placeholder="Nom de la rue">
-      <button id="ajouter-rue">Ajouter Rue</button>
-    </div>
+  <div class="top-buttons">
+    <button id="addHouseBtn">➕ Ajouter une maison</button>
+  </div>
 
-    <div id="maisons-container" style="display:none;">
-      <div class="header-maison">
-        <h2 id="nom-rue"></h2>
-        <button id="retour-rues">← Retour</button>
+  <section id="housesList">
+    <h2>Maisons disponibles</h2>
+    <div id="houseContainer"></div>
+  </section>
+
+  <section id="soldHouses">
+    <h2>Maisons vendues</h2>
+    <div id="soldContainer"></div>
+  </section>
+
+  <div id="houseFormModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Ajouter / Modifier une maison</h2>
+      <label>Nom :</label>
+      <input type="text" id="houseName" placeholder="Nom de la maison">
+      <label>Statut :</label>
+      <select id="houseStatus">
+        <option value="disponible">Disponible</option>
+        <option value="vendue">Vendue</option>
+      </select>
+
+      <div class="modal-buttons">
+        <button id="saveHouseBtn">💾 Enregistrer</button>
+        <button id="closeModalBtn" class="close-btn">❌ Fermer</button>
       </div>
-
-      <div class="filter-bar">
-        <button id="toggle-filtre">Afficher toutes les maisons</button>
-      </div>
-
-      <ul id="maisons-list"></ul>
-
-      <div class="ajout-maison">
-        <input type="text" id="numero-maison" placeholder="Numéro de maison">
-        <button id="ajouter-maison">Ajouter Maison</button>
-      </div>
-    </div>
-
-    <div id="stats-container">
-      <h2>Statistiques</h2>
-      <p>Total vendus : <span id="total-ventes">0</span></p>
-      <p>Total encaissé : <span id="total-argent">0</span> €</p>
-      <p>Refus : <span id="total-refus">0</span></p>
     </div>
   </div>
 

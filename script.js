@@ -5,7 +5,6 @@ function sauvegarder() {
     calculerStats();
 }
 
-// Affichage des rues
 function afficherRues() {
     const ruesList = document.getElementById("rues-list");
     ruesList.innerHTML = "";
@@ -20,7 +19,6 @@ function afficherRues() {
     });
 }
 
-// Ajouter une rue
 document.getElementById("ajouter-rue").onclick = () => {
     const nomRue = document.getElementById("nouvelle-rue").value.trim();
     if(nomRue) {
@@ -31,7 +29,6 @@ document.getElementById("ajouter-rue").onclick = () => {
     }
 };
 
-// Afficher maisons
 let rueSelectionnee = null;
 function afficherMaisons(index) {
     rueSelectionnee = index;
@@ -51,7 +48,7 @@ function afficherMaisonsListe() {
         const card = document.createElement("div");
         card.className = "house-card";
 
-        // Statut couleur
+        // couleur selon statut
         switch(maison.statut){
             case "Vendu": card.classList.add("vendu"); break;
             case "Refus": card.classList.add("refus"); break;
@@ -96,19 +93,17 @@ function afficherMaisonsListe() {
         actions.append(btnVendu, btnRefus, btnRepasser);
         card.append(info, actions);
 
-        // Déplacement automatique
+        // Déplacement automatique selon statut
         if(maison.statut === "Vendu") maisonsVenduesList.appendChild(card);
         else maisonsList.appendChild(card);
     });
 }
 
-// Retour aux rues
 document.getElementById("retour-rues").onclick = () => {
     document.getElementById("rues-container").style.display = "block";
     document.getElementById("maisons-container").style.display = "none";
 };
 
-// Ajouter maison
 document.getElementById("ajouter-maison").onclick = () => {
     const numero = document.getElementById("numero-maison").value.trim();
     if(numero) {
@@ -119,7 +114,6 @@ document.getElementById("ajouter-maison").onclick = () => {
     }
 };
 
-// Calcul statistiques
 function calculerStats() {
     let totalVentes = 0, totalArgent = 0, totalRefus = 0;
     rues.forEach(rue => {

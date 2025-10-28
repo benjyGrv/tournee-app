@@ -15,6 +15,7 @@ function afficherRues() {
         li.textContent = rue.nom;
         const btn = document.createElement("button");
         btn.textContent = "Voir Maisons";
+        btn.classList.add("modifier");
         btn.onclick = () => afficherMaisons(index);
         li.appendChild(btn);
         ruesList.appendChild(li);
@@ -47,12 +48,15 @@ function afficherMaisonsListe() {
     maisonsList.innerHTML = "";
     rues[rueSelectionnee].maisons.forEach((maison, idx) => {
         const li = document.createElement("li");
-        li.className = ""; // reset
+        li.className = "";
         if(maison.statut === "Vendu") li.classList.add("vendu");
         else if(maison.statut === "Refus") li.classList.add("refus");
         else if(maison.statut === "À repasser") li.classList.add("repasser");
 
-        li.textContent = `Maison ${maison.numero} - Statut: ${maison.statut || "Non fait"} - Montant: ${maison.montant || 0}€ (${maison.paiement || "-"})`;
+        li.innerHTML = `<span>Maison ${maison.numero}</span>
+                        <span>${maison.statut || "Non fait"}</span>
+                        <span>${maison.montant || 0}€</span>
+                        <span>${maison.paiement || "-"}</span>`;
 
         // Boutons
         const btnVendu = document.createElement("button");
@@ -87,6 +91,7 @@ function afficherMaisonsListe() {
 
         const btnModifier = document.createElement("button");
         btnModifier.textContent = "Modifier";
+        btnModifier.classList.add("modifier");
         btnModifier.onclick = () => {
             const nouveauStatut = prompt("Modifier le statut (Vendu / Refus / À repasser) :", maison.statut || "Non fait");
             if(nouveauStatut) {
@@ -105,6 +110,7 @@ function afficherMaisonsListe() {
 
         const btnSupprimer = document.createElement("button");
         btnSupprimer.textContent = "Supprimer";
+        btnSupprimer.classList.add("supprimer");
         btnSupprimer.onclick = () => {
             if(confirm(`Supprimer la maison ${maison.numero} ?`)) {
                 rues[rueSelectionnee].maisons.splice(idx, 1);
